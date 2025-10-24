@@ -46,7 +46,6 @@ export async function markdown(
   const patchedParser: any = {
     ...mdxParser,
     parse(text: string, options?: any) {
-      // @ts-expect-error cast
       const result = mdxParser.parseForESLint!(text, options)
       const body = result.ast.body
 
