@@ -40,7 +40,8 @@
     "release": "bumpp",
     "test": "vitest",
     "typecheck": "tsc --noEmit",
-    "prepare": "simple-git-hooks"
+    "prepare": "pnpm build && simple-git-hooks",
+    "postinstall": "pnpm build && simple-git-hooks"
   },
   "peerDependencies": {
     "@eslint-react/eslint-plugin": "^2.0.1",
