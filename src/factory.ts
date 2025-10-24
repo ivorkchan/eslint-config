@@ -1,5 +1,5 @@
 import type { Linter } from 'eslint'
-import type { RuleOptions } from './typegen'
+import type { RuleOptions } from './typegen.d'
 import type { Awaitable, ConfigNames, OptionsConfig, TypedFlatConfigItem } from './types'
 
 import { FlatConfigComposer } from 'eslint-flat-config-utils'
@@ -314,6 +314,7 @@ export function antfu(
     configs.push(formatters(
       options.formatters,
       typeof stylisticOptions === 'boolean' ? {} : stylisticOptions,
+      options.markdown !== false,
     ))
   }
 

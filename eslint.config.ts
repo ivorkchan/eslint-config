@@ -1,3 +1,4 @@
+import { createSimplePlugin } from 'eslint-factory'
 import { antfu } from './src'
 
 export default antfu(
@@ -33,4 +34,11 @@ export default antfu(
       'perfectionist/sort-objects': 'error',
     },
   },
+  createSimplePlugin({
+    name: 'debugging',
+    include: ['**/*.mdx'],
+    create(context) {
+      console.log(context.sourceCode.ast.tokens)
+    },
+  }),
 )

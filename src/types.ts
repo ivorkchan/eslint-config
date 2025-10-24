@@ -3,7 +3,7 @@ import type { ParserOptions } from '@typescript-eslint/parser'
 import type { Linter } from 'eslint'
 import type { FlatGitignoreOptions } from 'eslint-config-flat-gitignore'
 import type { Options as VueBlocksOptions } from 'eslint-processor-vue-blocks'
-import type { ConfigNames, RuleOptions } from './typegen'
+import type { ConfigNames, RuleOptions } from './typegen.d'
 import type { VendoredPrettierOptions } from './vender/prettier-types'
 
 export type Awaitable<T> = T | Promise<T>
@@ -123,6 +123,13 @@ export interface OptionsFormatters {
    * When set to `true`, it will use Prettier.
    */
   markdown?: 'prettier' | 'dprint' | boolean
+
+  /**
+   * Enable formatting support for MDX.
+   *
+   * Currently only support Prettier.
+   */
+  mdx?: 'prettier' | boolean
 
   /**
    * Enable formatting support for GraphQL.

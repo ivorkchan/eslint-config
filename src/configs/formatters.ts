@@ -2,7 +2,7 @@ import type { OptionsFormatters, StylisticConfig, TypedFlatConfigItem } from '..
 import type { VendoredPrettierOptions, VendoredPrettierRuleOptions } from '../vender/prettier-types'
 
 import { isPackageExists } from 'local-pkg'
-import { GLOB_ASTRO, GLOB_ASTRO_TS, GLOB_CSS, GLOB_GRAPHQL, GLOB_HTML, GLOB_LESS, GLOB_MARKDOWN, GLOB_POSTCSS, GLOB_SCSS, GLOB_SVG, GLOB_XML } from '../globs'
+import { GLOB_ASTRO, GLOB_ASTRO_TS, GLOB_CSS, GLOB_GRAPHQL, GLOB_HTML, GLOB_LESS, GLOB_MARKDOWN, GLOB_MDX, GLOB_POSTCSS, GLOB_SCSS, GLOB_SVG, GLOB_XML } from '../globs'
 
 import { ensurePackages, interopDefault, isPackageInScope, parserPlain } from '../utils'
 import { StylisticConfigDefaults } from './stylistic'
@@ -24,6 +24,7 @@ function mergePrettierOptions(
 export async function formatters(
   options: OptionsFormatters | true = {},
   stylistic: StylisticConfig = {},
+  markdownParserEnabled = true,
 ): Promise<TypedFlatConfigItem[]> {
   if (options === true) {
     const isPrettierPluginXmlInScope = isPackageInScope('@prettier/plugin-xml')
@@ -33,6 +34,7 @@ export async function formatters(
       graphql: true,
       html: true,
       markdown: true,
+      mdx: true,
       slidev: isPackageExists('@slidev/cli'),
       svg: isPrettierPluginXmlInScope,
       xml: isPrettierPluginXmlInScope,
@@ -208,7 +210,7 @@ export async function formatters(
   }
 
   if (options.markdown) {
-    const formater = options.markdown === true
+    const formatter = options.markdown === true
       ? 'prettier'
       : options.markdown
 
@@ -221,14 +223,14 @@ export async function formatters(
     configs.push({
       files: [GLOB_MARKDOWN],
       ignores: GLOB_SLIDEV,
-      languageOptions: {
-        parser: parserPlain,
-      },
+      languageOptions: markdownParserEnabled
+        ? {}
+        : { parser: parserPlain },
       name: 'antfu/formatter/markdown',
       rules: {
-        [`format/${formater}`]: [
+        [`format/${formatter}`]: [
           'error',
-          formater === 'prettier'
+          formatter === 'prettier'
             ? mergePrettierOptions(prettierOptions, {
                 embeddedLanguageFormatting: 'off',
                 parser: 'markdown',
@@ -262,6 +264,26 @@ export async function formatters(
         },
       })
     }
+  }
+
+  if (options.mdx) {
+    configs.push({
+      files: [GLOB_MDX],
+      languageOptions: markdownParserEnabled
+        ? {}
+        : { parser: parserPlain },
+      name: 'antfu/formatter/mdx',
+      rules: {
+        'format/prettier': [
+          'error',
+          mergePrettierOptions(prettierOptions, {
+            ...prettierOptions,
+            embeddedLanguageFormatting: 'off',
+            parser: 'mdx',
+          }),
+        ],
+      },
+    })
   }
 
   if (options.astro) {

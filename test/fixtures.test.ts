@@ -26,6 +26,11 @@ runWithConfig('all', {
   vue: true,
   svelte: true,
   astro: true,
+  markdown: true,
+  formatters: {
+    markdown: true,
+    mdx: true,
+  },
 })
 runWithConfig('no-style', {
   typescript: true,

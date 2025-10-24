@@ -12,6 +12,7 @@ export default antfu(
     typescript: true,
     formatters: true,
     pnpm: true,
+    markdown: true,
     type: 'lib',
   },
   {
