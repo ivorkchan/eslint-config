@@ -12,9 +12,6 @@ overrides:
   '@typescript-eslint/utils': ^8.46.1
   eslint: ^9.37.0
   tsx: ^4.20.6
-catalog:
-  eslint-factory: ^0.1.2
-  eslint-plugin-mdx: ^3.6.2
 catalogs:
   dev:
     '@antfu/ni': ^26.1.0
@@ -22,6 +19,7 @@ catalogs:
     '@types/eslint-plugin-jsx-a11y': ^6.10.1
     '@types/node': ^24.7.2
     bumpp: ^10.3.1
+    eslint-factory: ^0.1.2
     eslint-typegen: ^2.3.0
     execa: ^9.6.0
     jiti: ^2.6.1
@@ -44,6 +42,7 @@ catalogs:
     eslint-plugin-erasable-syntax-only: ^0.3.1
     eslint-plugin-format: ^1.0.2
     eslint-plugin-jsx-a11y: ^6.10.2
+    eslint-plugin-mdx: ^3.6.2
     eslint-plugin-react-hooks: ^7.0.0
     eslint-plugin-react-refresh: ^0.4.23
     eslint-plugin-solid: ^0.14.5
