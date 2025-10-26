@@ -103,6 +103,7 @@ export async function markdown(
         'style/jsx-closing-tag-location': 'off',
         'style/jsx-indent': 'off',
         'style/jsx-indent-props': 'off',
+        'style/jsx-one-expression-per-line': 'off',
         'style/max-statements-per-line': 'off',
       },
     },
